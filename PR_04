@@ -1,0 +1,158 @@
+## 4.a : Create line Plot ##
+
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+data = {
+    "maths": [80, 85, 90, 95, 98, 75],
+    "science": [90, 45, 67, 78, 89, 56],
+    "english": [56, 89, 67, 77, 89, 44]
+}
+
+df = pd.DataFrame(data)
+
+plt.plot(df["maths"], label="Maths")
+plt.plot(df["science"], label="Science")
+plt.plot(df["english"], label="English")
+plt.xlabel("Students")
+plt.ylabel("Marks")
+plt.title("Marks of Students")
+plt.legend()
+plt.show()
+-------------------------------------------------------
+## 4.b : Create Bar Plot ##
+
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+data = {
+    "maths": [80, 85, 90, 95, 98, 75],
+    "science": [90, 45, 67, 78, 89, 56],
+    "english": [56, 89, 67, 77, 89, 44]
+}
+
+df = pd.DataFrame(data)
+df.plot(kind="bar")
+plt.xlabel("Students")
+plt.ylabel("Marks")
+plt.title("Marks of Students")
+plt.show()
+---------------------------------------------------------------
+## 4.c : Create Pie Chart ##
+
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+data = {
+    "maths": [80, 85, 90, 95, 98, 75],
+    "science": [90, 45, 67, 78, 89, 56],
+    "english": [56, 89, 67, 77, 89, 44]
+}
+
+df = pd.DataFrame(data)
+marks = df.mean()
+
+plt.pie(
+    marks,
+    labels=marks.index,
+    autopct="%1.1f%%"
+)
+
+plt.title("Average Marks by Subject")
+plt.show()
+--------------------------------------------------------------
+## 4.d : Create Histogram ##
+
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+data = {
+    "maths": [80, 85, 90, 95, 98, 75],
+    "science": [90, 45, 67, 78, 89, 56],
+    "english": [56, 89, 67, 77, 89, 44]
+}
+
+df = pd.DataFrame(data)
+
+plt.hist(df["maths"], bins=5)
+plt.xlabel("Marks")
+plt.ylabel("Frequency")
+plt.title("Maths Marks Distribution")
+plt.show()
+----------------------------------------------------------------
+## 4.e : Create Box Plot ##
+
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+data = {
+    "maths": [80, 85, 90, 95, 98, 75],
+    "science": [90, 45, 67, 78, 89, 56],
+    "english": [56, 89, 67, 77, 89, 44]
+}
+
+df = pd.DataFrame(data)
+
+sns.boxplot(data=df)
+plt.title("Marks Distribution")
+plt.show()
+---------------------------------------------------------------
+## 4.f : Create Scatter Plot ##
+
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+data = {
+    "maths": [80, 85, 90, 95, 98, 75],
+    "science": [90, 45, 67, 78, 89, 56],
+    "english": [56, 89, 67, 77, 89, 44]
+}
+
+df = pd.DataFrame(data)
+
+plt.scatter(df["maths"], df["science"])
+plt.xlabel("Maths")
+plt.ylabel("Science")
+plt.title("Maths vs Science")
+plt.show()
+----------------------------------------------------------------
+## 4.g : Create Heatmap ##
+
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+data = {
+    "maths": [80, 85, 90, 95, 98, 75],
+    "science": [90, 45, 67, 78, 89, 56],
+    "english": [56, 89, 67, 77, 89, 44]
+}
+
+df = pd.DataFrame(data)
+
+sns.heatmap(df, annot=True, cmap="Blues")
+plt.title("Marks Heatmap")
+plt.show()
+---------------------------------------------------------------------
+## 4.h : Create Pair Plot ##
+
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+data = {
+    "maths": [80, 85, 90, 95, 98, 75],
+    "science": [90, 45, 67, 78, 89, 56],
+    "english": [56, 89, 67, 77, 89, 44]
+}
+
+df = pd.DataFrame(data)
+
+sns.pairplot(df)
+plt.show()
