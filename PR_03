@@ -1,0 +1,77 @@
+## 3.a : Create DataFrames ##
+import pandas as pd
+
+data1 = {
+    "Id": [1, 2, 3, 4, 5, 1],
+    "Name": ["joy", "john", "Bob", "Emma", "Alex", "krrish"],
+    "Age": [25, 30, 28, 22, 24, 25],
+    "Marks": [85, 80, None, 95, 91, 85],
+    "City": ["Surat", "Vadodra", "Delhi", "Mumbai", "Bhavnagar", "Surat"],
+    "Department": ["IT", "Com", "IT", "Com", "IT", "IT"]
+}
+
+df_create = pd.DataFrame(data1)
+df_create.to_csv("Students_info.csv", index=False)
+print("CSV file created successfully!")
+-------------------------------------------------
+## 3.b : Read CSV file ##
+
+import pandas as pd
+df = pd.read_csv("Students_info.csv")
+print("\nData read from CSV file:")
+print(df)
+-----------------------------------------------
+## 3.c : Filter Data ##
+
+print("Students having marks greater than 80\n")
+filtered = df[df["Marks"] > 80]
+print(filtered)
+---------------------------------------------------
+## 3.d : Sort Data ##
+
+print("\nStudents sorted by Marks:")
+sorted_df = df.sort_values(by="Marks", ascending=False)
+print(sorted_df)
+-----------------------------------------------------
+## 3.e : Group Data ##
+
+print("\nAverage Marks by Department:")
+grouped = df.groupby("Department")["Marks"].mean()
+print(grouped)
+-----------------------------------------------------
+## 3.f : Merge DataFrames ##
+
+fees = pd.DataFrame({
+    "Id": [1, 2, 3, 4, 5],
+    "Fees": [100000, 50000, 40000, 30000, 60000]
+})
+
+merged = pd.merge(df, fees, on="Id", how="left")
+print("\nMerged DataFrame:")
+print(merged)
+----------------------------------------------------
+## 3.g : Handle Missing Values ##
+
+print("\nMissing values before handling:")
+print(df.isnull().sum())
+
+# Replace missing Marks with average Marks
+df["Marks"] = df["Marks"].fillna(df["Marks"].mean())
+
+print("\nDataFrame after handling missing values:")
+print(df)
+---------------------------------------------
+## 3.h : Remove Duplicates ##
+
+print("\nDataFrame before removing duplicates:")
+print(df)
+
+df = df.drop_duplicates()
+
+print("\nDataFrame after removing duplicates:")
+print(df)
+-------------------------------------------------------------
+## 3.h : Summary Statistics ##
+
+print("\nSummary Statistics:")
+print(df.describe())
