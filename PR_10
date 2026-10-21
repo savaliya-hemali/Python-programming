@@ -1,0 +1,103 @@
+## 10.a : Decision Tree and Random Forest Classifiers ##
+
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier, plot_tree
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, classification_report
+
+data = {
+    "Study_Hours": [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5],
+    "Attendance": [60, 65, 68, 70, 72, 75, 78, 80, 82, 85, 88, 90, 92, 95, 96, 98],
+    "Assignment_Score": [55, 58, 60, 62, 65, 68, 70, 72, 75, 78, 80, 83, 86, 89, 92, 95],
+    "Previous_Exam": [50, 55, 57, 60, 62, 65, 68, 70, 73, 76, 80, 84, 87, 90, 93, 95],
+    "Result": [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+}
+
+df = pd.DataFrame(data)
+print("Dataset:")
+print(df)
+
+X = df[[
+    "Study_Hours",
+    "Attendance",
+    "Assignment_Score",
+    "Previous_Exam"
+]]
+y = df["Result"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42, stratify=y
+)
+
+dt_model = DecisionTreeClassifier(random_state=42)
+dt_model.fit(X_train, y_train)
+dt_pred = dt_model.predict(X_test)
+dt_accuracy = accuracy_score(y_test, dt_pred)
+
+print("\nDecision Tree")
+print("Accuracy:", dt_accuracy)
+print("\nClassification Report:")
+print(classification_report(
+    y_test, dt_pred, target_names=["FAIL", "PASS"], zero_division=0
+))
+
+rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
+rf_model.fit(X_train, y_train)
+rf_pred = rf_model.predict(X_test)
+rf_accuracy = accuracy_score(y_test, rf_pred)
+
+print("\nRandom Forest")
+print("Accuracy:", rf_accuracy)
+print("\nClassification Report:")
+print(classification_report(
+    y_test, rf_pred, target_names=["FAIL", "PASS"], zero_division=0
+))
+---------------------------------------------------------------------
+# 10.b : Compare Accuracy
+print("\nAccuracy Comparison")
+print("Decision Tree :", dt_accuracy)
+print("Random Forest :", rf_accuracy)
+-----------------------------------------------------------------------
+# 10.c : Feature Importance
+dt_importance = pd.Series(
+    dt_model.feature_importances_, index=X.columns
+).sort_values(ascending=False)
+
+rf_importance = pd.Series(
+    rf_model.feature_importances_, index=X.columns
+).sort_values(ascending=False)
+
+print("\nDecision Tree Feature Importance:")
+print(dt_importance)
+
+print("\nRandom Forest Feature Importance:")
+print(rf_importance)
+
+rf_importance.sort_values().plot(kind="barh", figsize=(8, 5))
+plt.xlabel("Importance")
+plt.ylabel("Feature")
+plt.title("Random Forest Feature Importance")
+plt.show()
+----------------------------------------------------------------------------
+# 10.d : Predict a New Student
+new_student = pd.DataFrame({
+    "Study_Hours": [6],
+    "Attendance": [90],
+    "Assignment_Score": [85],
+    "Previous_Exam": [82]
+})
+
+dt_new_prediction = dt_model.predict(new_student)[0]
+rf_new_prediction = rf_model.predict(new_student)[0]
+
+print("\nNew Student Prediction")
+print(new_student)
+print("Decision Tree Prediction:", dt_new_prediction)
+print("Random Forest Prediction:", rf_new_prediction)
+
+if rf_new_prediction == 1:
+    print("Random Forest Result: PASS")
+else:
+    print("Random Forest Result: FAIL")
