@@ -1,0 +1,103 @@
+## 11.a : Sample Data ##
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import (
+    accuracy_score,
+    precision_score,
+    recall_score,
+    f1_score,
+    confusion_matrix,
+    classification_report
+)
+
+data = {
+    "Study_Hours": [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5],
+    "Attendance": [60, 65, 68, 70, 72, 75, 78, 80, 82, 85, 88, 90, 92, 95, 96, 98],
+    "Assignment_Score": [55, 58, 60, 62, 65, 68, 70, 72, 75, 78, 80, 83, 86, 89, 92, 95],
+    "Previous_Exam": [50, 55, 57, 60, 62, 65, 68, 70, 73, 76, 80, 84, 87, 90, 93, 95],
+    "Result": [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+}
+
+df = pd.DataFrame(data)
+print("Dataset:")
+print(df)
+
+X = df[[
+    "Study_Hours",
+    "Attendance",
+    "Assignment_Score",
+    "Previous_Exam"
+]]
+y = df["Result"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42, stratify=y
+)
+
+print("\nTraining samples:", len(X_train))
+print("Testing samples :", len(X_test))
+----------------------------------------------------------------------------------
+## 11.b : Train Naive Bayes Model and Perform Prediction ##
+
+model = GaussianNB()
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+y_prob = model.predict_proba(X_test)
+
+print("\nActual Values:")
+print(y_test.to_numpy())
+
+print("\nPredicted Values:")
+print(y_pred)
+
+print("\nPredicted Probabilities:")
+print(y_prob)
+------------------------------------------------------------
+## 11.c : Evaluate Performance ##
+
+cm = confusion_matrix(y_test, y_pred)
+
+print("\nConfusion Matrix:")
+print(cm)
+
+accuracy = accuracy_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred, zero_division=0)
+recall = recall_score(y_test, y_pred, zero_division=0)
+f1 = f1_score(y_test, y_pred, zero_division=0)
+
+print("\nEvaluation Metrics")
+print("Accuracy :", accuracy)
+print("Precision:", precision)
+print("Recall   :", recall)
+print("F1-Score :", f1)
+
+print("\nClassification Report:")
+print(classification_report(
+    y_test, y_pred, target_names=["FAIL", "PASS"], zero_division=0
+))
+----------------------------------------------------------------------
+## 11.d : Predict a New Student ##
+
+new_student = pd.DataFrame({
+    "Study_Hours": [6],
+    "Attendance": [90],
+    "Assignment_Score": [85],
+    "Previous_Exam": [82]
+})
+
+new_prediction = model.predict(new_student)[0]
+new_probability = model.predict_proba(new_student)[0]
+
+print("\nNew Student:")
+print(new_student)
+print("Predicted Class:", new_prediction)
+print("Probability of FAIL:", new_probability[0])
+print("Probability of PASS:", new_probability[1])
+
+if new_prediction == 1:
+    print("Result: PASS")
+else:
+    print("Result: FAIL")
