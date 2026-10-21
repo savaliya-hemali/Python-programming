@@ -1,0 +1,101 @@
+## 9.a : Build Logistic Regression ##
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import (
+    confusion_matrix,
+    accuracy_score,
+    precision_score,
+    recall_score,
+    f1_score,
+    classification_report,
+    ConfusionMatrixDisplay
+)
+
+data = {
+    "Study_Hours": [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5],
+    "Attendance": [60, 65, 68, 70, 72, 75, 78, 80, 82, 85, 88, 90, 92, 95, 96, 98],
+    "Result": [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+}
+
+df = pd.DataFrame(data)
+print("Dataset:")
+print(df)
+
+X = df[["Study_Hours", "Attendance"]]
+y = df["Result"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42, stratify=y
+)
+
+model = LogisticRegression()
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+y_prob = model.predict_proba(X_test)[:, 1]
+
+print("\nActual Values:")
+print(y_test.to_numpy())
+
+print("\nPredicted Values:")
+print(y_pred)
+
+print("\nPredicted Probability of PASS:")
+print(y_prob)
+-----------------------------------------------------------
+## 9.b : Confusion Matrix ##
+
+cm = confusion_matrix(y_test, y_pred)
+
+print("\nConfusion Matrix:")
+print(cm)
+
+disp = ConfusionMatrixDisplay(
+    confusion_matrix=cm,
+    display_labels=["FAIL (0)", "PASS (1)"]
+)
+disp.plot()
+plt.title("Confusion Matrix - Logistic Regression")
+plt.show()
+---------------------------------------------------------------
+## 9.c : Evaluation Metrics ##
+
+
+accuracy = accuracy_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred, zero_division=0)
+recall = recall_score(y_test, y_pred, zero_division=0)
+f1 = f1_score(y_test, y_pred, zero_division=0)
+
+print("\nEvaluation Metrics")
+print("Accuracy :", accuracy)
+print("Precision:", precision)
+print("Recall   :", recall)
+print("F1-Score :", f1)
+
+print("\nClassification Report:")
+print(classification_report(y_test, y_pred, zero_division=0))
+-------------------------------------------------------------------------
+## 9.d : Predict a New Student ##
+
+new_student = pd.DataFrame({
+    "Study_Hours": [6],
+    "Attendance": [90]
+})
+
+new_prediction = model.predict(new_student)
+new_probability = model.predict_proba(new_student)[0, 1]
+
+print("\nNew Student Prediction")
+print("Study Hours:", new_student["Study_Hours"].iloc[0])
+print("Attendance:", new_student["Attendance"].iloc[0])
+print("Predicted Class:", new_prediction[0])
+print("Probability of PASS:", new_probability)
+
+if new_prediction[0] == 1:
+    print("Result: PASS")
+else:
+    print("Result: FAIL")
