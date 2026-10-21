@@ -1,0 +1,147 @@
+## 1.a : Variables ##
+
+Name = "joy"
+Age = 20
+print("Name:", Name)
+print("Age:", Age)
+-------------------------------------
+## 1.b : Data types ##
+
+a = 10
+b = 3.14a
+c = "Hello"
+d = True
+print(type(a))
+print(type(b))
+print(type(c))
+print(type(d))
+-----------------------------------------
+## 1.c : Operators ##
+
+a = 10
+b = 3
+print(a + b)
+print(a - b)
+print(a * b)
+print(a / b)
+print(a % b)
+------------------------------------------------------
+## 1.d : Input/Output functions ##
+
+name = input("Enter your name: ")
+age = int(input("Enter your age: "))
+print("Hello", name)
+print("Age:", age)
+---------------------------------------------------------
+## 1.e : Conditional statements ##
+
+num = int(input("Enter a number: "))
+if num > 0:
+    print("Positive")
+elif num < 0:
+    print("Negative")
+else:
+    print("Zero")
+-------------------------------------------------------------
+## 1.f : Loops (For and While) ##
+
+for i in range(1, 6):
+    print(i)
+
+i = 1
+while i < 6:
+    print(i)
+    if i == 3:
+        break
+    i += 1
+----------------------------------------------------------------
+## 1.g : Function ##
+
+def add(a, b):
+    return a + b
+
+x = int(input("Enter first number: "))
+y = int(input("Enter second number: "))
+print("Sum =", add(x, y))
+--------------------------------------------------------------
+## 1.g : String ##
+
+text = input("Enter a string: ")
+print("String:", text)
+print("Length:", len(text))
+print("Uppercase:", text.upper())
+---------------------------------------------------------------
+## 1.h : Dictionaries ##
+
+dict1 = {
+    "DS": 1,
+    "WAD": 2,
+    "CS": 3,
+    "AAD": 4
+}
+print(dict1)
+-----------------------------------------------------------------
+## 1.i : List ##
+
+list1 = ["DS", "AAD", "WAD", "CS"]
+list2 = [1, 2, 3, 4]
+print(list1)
+list1[0] = "SYS.S"
+list3 = list1 + list2
+print(list3)
+
+list1 = [89, 55, 92, 100, 12, 60, 3]
+print("Unsorted list :", list1)
+list1.sort()
+print("Sorted list :", list1)
+list1.sort(reverse=True)
+print("Descending order :", list1)
+----------------------------------------------------
+## 1.j : Tuples ##
+
+tuple = ("apple", "banana", "cherry", "apple", "cherry")
+print(tuple)
+
+tuple1 = ("DS", "AAD", "WAD", "CS")
+tuple2 = (1, 2, 3, 4)
+print(tuple1)
+print(tuple2)
+tuple3 = tuple1 + tuple2
+print(tuple3)
+--------------------------------------------------------
+## 1.k : Sets ##
+
+Set = (10, 20, 20, 30, 40)
+print(Set)
+
+set1 = {"abc", 34, True, 40, "male", 1, False, 0}
+print(set1)
+
+A = {10, 20, 50, 60}
+B = {80, 90, 100}
+set2 = A | B
+set3 = A & B
+set4 = A - B
+set5 = A ^ B
+
+print("Union", set2)
+print("Intersection : ", set3)
+print("Difference :", set4)
+print("Symmetric Difference :", set5)
+
+A.add(70)
+A.remove(20)
+A.discard(10)
+print(A)
+
+setA = {8, 11, 14, 40, 10, 90}
+setB = {19, 25, 30, 10, 11}
+
+setA.add(100)
+print(setA)
+setB.remove(25)
+print(setB)
+setC = setA.copy()
+print(setC)
+setA.discard(10)
+print(setA)
