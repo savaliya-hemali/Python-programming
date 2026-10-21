@@ -1,0 +1,62 @@
+## 5.a : Mean ##
+
+import numpy as np
+data = np.array([10, 12, 15, 15, 18, 20, 22, 25, 30])
+mean = np.mean(data)
+print("Data:", data)
+print("Mean =", mean)
+-------------------------------------------------------
+## 5.b : Median ##
+
+median = np.median(data)
+print("Data:", data)
+print("Median =", median)
+-----------------------------------------------------------
+## 5.c : Mode ##
+
+values, counts = np.unique(data, return_counts=True)
+mode = values[np.argmax(counts)]
+print("Data:", data)
+print("Mode =", mode)
+------------------------------------------------------------
+## 5.d : Variance ##
+
+variance = np.var(data)
+
+print("Data:", data)
+print("Variance:", variance)
+-------------------------------------------------------------
+## 5.e : Standard Deviation ##
+
+std = np.std(data)
+print("Data:", data)
+print("Standard Deviation =", std)
+---------------------------------------------------------------
+## 5.f : Quartiles ##
+
+Q1 = np.percentile(data, 25)
+Q2 = np.percentile(data, 50)
+Q3 = np.percentile(data, 75)
+
+print("Data:", data)
+print("Q1 (25%):", Q1)
+print("Q2 (50%):", Q2)
+print("Q3 (75%):", Q3)
+-------------------------------------------------------------
+## 5.g : Percentile ##
+
+P90 = np.percentile(data, 90)
+print("Data:", data)
+print("90th Percentile:", P90)
+---------------------------------------------------------------
+## 5.h : Skewness ##
+
+skewness = np.mean((data - mean) ** 3) / std ** 3
+print("Data:", data)
+print("Skewness =", skewness)
+---------------------------------------------------------------
+## 5.i : Kurtosis ##
+
+kurtosis = np.mean((data - mean) ** 4) / std ** 4
+print("Data:", data)
+print("Kurtosis =", kurtosis)
