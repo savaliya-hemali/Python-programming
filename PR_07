@@ -1,0 +1,65 @@
+## 7.a : Calculate Point Estimates ##
+
+import numpy as np
+import scipy.stats as stats
+import math
+
+marks = np.array([65, 72, 80, 75, 68, 90, 85, 78, 70, 82])
+n = len(marks)
+sample_mean = np.mean(marks)
+sample_std = np.std(marks, ddof=1)
+
+print("Sample Size:", n)
+print("Point Estimate (Sample Mean):", sample_mean)
+print("Sample Standard Deviation:", sample_std)
+--------------------------------------------------
+## 7.b : Standard Error ##
+
+standard_error = sample_std / np.sqrt(n)
+print("Standard Error:", standard_error)
+---------------------------------------------------
+## 7.c : Confidence Intervals ##
+
+confidence_level = 0.95
+alpha = 1 - confidence_level
+degrees_of_freedom = n - 1
+t_critical = stats.t.ppf(1 - alpha / 2, degrees_of_freedom)
+margin_of_error = t_critical * standard_error
+lower_limit = sample_mean - margin_of_error
+upper_limit = sample_mean + margin_of_error
+
+print("\n95% Confidence Interval for Mean")
+print("t Critical Value:", t_critical)
+print("Margin of Error:", margin_of_error)
+print("Lower Limit:", lower_limit)
+print("Upper Limit:", upper_limit)
+-------------------------------------------------------
+## 7.d : Population Proportion ##
+
+successes = 80
+total_students = 100
+p_hat = successes / total_students
+proportion_se = np.sqrt(p_hat * (1 - p_hat) / total_students)
+z_critical = stats.norm.ppf(0.975)
+proportion_margin = z_critical * proportion_se
+proportion_lower = p_hat - proportion_margin
+proportion_upper = p_hat + proportion_margin
+
+print("\nPopulation Proportion Estimation")
+print("Sample Proportion:", p_hat)
+print("Standard Error:", proportion_se)
+print("95% Confidence Interval:", proportion_lower, "to", proportion_upper)
+----------------------------------------------------------
+## 7.e : Sample Size Calculation ##
+population_std = 10
+desired_margin = 2
+confidence_level = 0.95
+alpha = 1 - confidence_level
+z_critical = stats.norm.ppf(1 - alpha / 2)
+sample_size = ((z_critical * population_std) / desired_margin) ** 2
+required_sample_size = math.ceil(sample_size)
+
+print("\nSample Size Calculation")
+print("Z Critical Value:", z_critical)
+print("Calculated Sample Size:", sample_size)
+print("Required Sample Size:", required_sample_size)
