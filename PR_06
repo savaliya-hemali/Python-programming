@@ -1,0 +1,148 @@
+## 6.a : Coin toss ##
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+tosses = np.random.choice(["Head", "Tail"], size=10000)
+
+heads = np.sum(tosses == "Head")
+tails = np.sum(tosses == "Tail")
+probability_heads = heads / len(tosses)
+
+print("Number of Heads:", heads)
+print("Number of Tails:", tails)
+print("Estimated Probability of Head:", probability_heads)
+
+plt.figure()
+plt.bar(["Head", "Tail"], [heads, tails])
+plt.xlabel("Outcome")
+plt.ylabel("Frequency")
+plt.title("Coin Toss Distribution")
+plt.show()
+-------------------------------------------------------
+## 6.b : Dice ##
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+rolls = np.random.randint(1, 7, size=10000)
+
+print("First 20 Rolls:", rolls[:20])
+print("Average Dice Value:", np.mean(rolls))
+
+six_count = np.sum(rolls == 6)
+probability_six = six_count / len(rolls)
+
+print("Number of Sixes:", six_count)
+print("Estimated Probability of Six:", probability_six)
+
+values, counts = np.unique(rolls, return_counts=True)
+
+plt.figure()
+plt.bar(values, counts)
+plt.xlabel("Dice Outcome")
+plt.ylabel("Frequency")
+plt.title("Distribution of 10,000 Dice Rolls")
+plt.show()
+----------------------------------------------------------
+## 6.c : Dice graph ##
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+rolls = np.random.randint(1, 7, size=10000)
+values, counts = np.unique(rolls, return_counts=True)
+
+print("Dice Outcomes:", values)
+print("Frequencies:", counts)
+
+plt.figure()
+plt.bar(values, counts)
+plt.xlabel("Dice Outcome")
+plt.ylabel("Frequency")
+plt.title("Distribution of 10,000 Dice Rolls")
+plt.show()
+--------------------------------------------------------------
+## 6.d : Binomial distribution ##
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+binomial_data = np.random.binomial(n=10, p=0.5, size=10000)
+
+print("First 20 Values:", binomial_data[:20])
+print("Mean:", np.mean(binomial_data))
+
+plt.figure()
+plt.hist(binomial_data, bins=np.arange(-0.5, 11.5, 1))
+plt.xlabel("Number of Successes")
+plt.ylabel("Frequency")
+plt.title("Binomial Distribution")
+plt.show()
+----------------------------------------------------------------
+## 6.e : Normal distribution ##
+import numpy as np
+import matplotlib.pyplot as plt
+
+normal_data = np.random.normal(loc=50, scale=10, size=10000)
+
+print("Mean:", np.mean(normal_data))
+print("Standard Deviation:", np.std(normal_data))
+
+plt.figure()
+plt.hist(normal_data, bins=30)
+plt.xlabel("Value")
+plt.ylabel("Frequency")
+plt.title("Normal Distribution")
+plt.show()
+----------------------------------------------------------------------
+## 6.f : Random sampling ##
+import numpy as np
+import matplotlib.pyplot as plt
+
+population = np.random.normal(60, 10, 1000)
+sample = np.random.choice(population, size=50, replace=False)
+
+print("Population Size:", len(population))
+print("Sample Size:", len(sample))
+print("Population Mean:", np.mean(population))
+print("Sample Mean:", np.mean(sample))
+
+plt.figure()
+plt.hist(population, bins=30, alpha=0.7)
+plt.hist(sample, bins=15, alpha=0.7)
+plt.xlabel("Value")
+plt.ylabel("Frequency")
+plt.title("Population and Sample Distribution")
+plt.show()
+--------------------------------------------------------------
+## 6.g : Central Limit Theorem (CLT) ##
+import numpy as np
+import matplotlib.pyplot as plt
+
+population = np.random.exponential(scale=2, size=100000)
+sample_size = 30
+number_of_samples = 1000
+sample_means = []
+
+for i in range(number_of_samples):
+    sample = np.random.choice(population, size=sample_size)
+    sample_mean = np.mean(sample)
+    sample_means.append(sample_mean)
+
+plt.figure()
+plt.hist(population, bins=50)
+plt.xlabel("Population Value")
+plt.ylabel("Frequency")
+plt.title("Original Exponential Population")
+plt.show()
+
+plt.figure()
+plt.hist(sample_means, bins=30)
+plt.xlabel("Sample Mean")
+plt.ylabel("Frequency")
+plt.title("Sampling Distribution of Sample Means")
+plt.show()
+
+print("Population Mean:", np.mean(population))
+print("Mean of Sample Means:", np.mean(sample_means))
